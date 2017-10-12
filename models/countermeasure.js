@@ -1,8 +1,8 @@
 import { generateVolumeObject } from '../Engines/message';
-import { calculateCoverage, volumeIntersection } from '../Engines/AVEngine';
+import { calculateCoverage, volumeIntersection, calculateVolume } from '../Engines/AVEngine';
 
 class Countermeasure {
-    constructor(countermeasureStrings, EF, ARC, system){
+    constructor(countermeasureStrings, EFs, ARCs, system){
         const systemVolumeObject = system.getVolumeObject();
 
         if (countermeasureStrings.length > 1) {
@@ -12,20 +12,22 @@ class Countermeasure {
             this.volumeObject = generateVolumeObject(countermeasureStrings[0], systemVolumeObject)
         }
 
-        this.volumeObject = generateVolumeObject(countermeasureString, systemVolumeObject);
         this.volume = calculateVolume(this.volumeObject);
-        this.effectivenessFactor = EF; 
-        this.annualResponceCost = ARC;
+        this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
+        this.annualResponceCost = ARCs.reduce((a,b) => a+b);
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
-        return this.effectivenessFactor * this.getCoverage(attackVolumeObject);
+        return this.effectivenessFactor * calculateCoverage(attackVolumeObject, this.volumeObject) / 100;
     }
     getARC() {
         return this.annualResponceCost;
     }
-    getCoverage(attackVolumeObject) {
-        return calculateCoverage(attackVolumeObject, this.volumeObject);
+    getVolumeObject() {
+        return this.volumeObject;
+    }
+    getEF() {
+        return this.effectivenessFactor;
     }
 }
 
