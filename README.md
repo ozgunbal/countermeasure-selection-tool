@@ -13,7 +13,7 @@ Currently, there's only tests and code implementation
 - [ ] User Interaction
 
 ## Topic related
-- [ ] Single RORI Index Calculation
+- [X] Single RORI Index Calculation
 - [ ] RORI Index with countermeasure combinations
 - [ ] Displaying Attack Volume 3D Graphs
 - [ ] Store default countermeasures in JSON

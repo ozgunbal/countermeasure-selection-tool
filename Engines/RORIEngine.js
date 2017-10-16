@@ -1,4 +1,4 @@
-import roriDb from '../DBs/roriDb.json';
+// import roriDb from '../DBs/roriDb';
 
 // check is there a RORI Index in the database
 const isHaveRORIIndex = (countermeasureCode) => {
@@ -7,22 +7,21 @@ const isHaveRORIIndex = (countermeasureCode) => {
 }
 
 //
-const calculateRORIIndex = () => {
-    // get AIV from -> System specific
-    System.getAIV();
-    // get ALE -> Attack
-    Attack.getALE();
-    // get ARC -> CM
-    Countermeasure.getARC();
-    // get RM -> CM
-    Countermeasure.getRM();
+export const calculateRORIIndex = (system, attack, countermeasure) => {
+    const aiv = system.getAIV();
+    const ale = attack.getALE();
+    const arc = countermeasure.getARC();
+    const rm = countermeasure.getRM(attack.getVolumeObject());
 
-    //whenever is calculated from zero register to the database
+    return ((ale * rm) - arc) / (arc + aiv);
 }
 
-const getRORIIndex = () => {
+const getRORIIndex = (system, attack, countermeasure) => {
     if (isHaveRORIIndex(countermeasureCode)) {
         return JSON.parse(roriDb)[countermeasureCode];
     }
-    return calculateRORIIndex();
+    const rori = calculateRORIIndex(system, attack, countermeasure);
+    
+    // TODO: add rori to database with countermeasureCode
+    return rori;
 }
