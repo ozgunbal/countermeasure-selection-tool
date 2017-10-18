@@ -1,3 +1,5 @@
+// System string: R(1-6)C(1-5)U(1-6)
+
 const countermeasures = [
     {
         code: 'C1',

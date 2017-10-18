@@ -14,14 +14,14 @@ class Countermeasure {
 
         this.volume = calculateVolume(this.volumeObject);
         this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
-        this.annualResponceCost = ARCs.reduce((a,b) => a+b);
+        this.annualResponseCost = ARCs.reduce((a,b) => a+b);
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
         return this.effectivenessFactor * calculateCoverage(attackVolumeObject, this.volumeObject) / 100;
     }
     getARC() {
-        return this.annualResponceCost;
+        return this.annualResponseCost;
     }
     getVolumeObject() {
         return this.volumeObject;
