@@ -16,28 +16,16 @@ export const calculateRORIIndex = (system, attack, countermeasure) => {
     return ((ale * rm) - arc) / (arc + aiv);
 }
 
-const getCombinations = (countermeasureArray) => {
-    // TODO: refactor
-    const arr = countermeasureArray;
-
-    if (arr.length === 1 || arr.length === 0) {
-        return arr;
+export const getCombinations = (countermeasureArray) => {
+    if (countermeasureArray.length < 2) {
+        return countermeasureArray;
     }
-
-    var [first, ...rest] = arr;
-
-    return arr.reduce(function (acc, curr, idx, ar) {
-        acc.push([curr]);
-        var others = comb(ar.slice(idx + 1)).map(function (co) {
-            if (Array.isArray(co)) {
-                return [curr, ...co];
-            } else {
-                return [curr, co];
-            }
-        })
-        if (others.length > 0) acc.push(...others);
-
-        return acc;
+    return countermeasureArray.reduce((combinations, cm, idx) => {
+        combinations.push([cm]);
+        const rest = getCombinations(countermeasureArray.slice(idx + 1))
+            .map(combination => Array.isArray(combination) ? [cm, ...combination] : [cm, combination]);
+        if (rest.length > 0) combinations.push(...rest);
+        return combinations;
     }, [])
 };
 

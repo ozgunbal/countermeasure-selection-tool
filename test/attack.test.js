@@ -1,9 +1,9 @@
 import { assert, expect } from 'chai';
 
-import System from '../models/system';
-import Attack from '../models/attack';
-import { volumeUnion, calculateVolume } from '../Engines/AVEngine';
-import { generateVolumeObject } from '../Engines/message';
+import System from '../src/models/system';
+import Attack from '../src/models/attack';
+import { volumeUnion, calculateVolume } from '../src/Engines/AVEngine';
+import { generateVolumeObject } from '../src/Engines/message';
 import { systemVolumeLarge } from './sampleTestData';
 
 describe('Attack class', () => {

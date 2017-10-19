@@ -1,10 +1,10 @@
 import { assert, expect } from 'chai';
 
-import System from '../models/system';
-import Countermeasure from '../models/countermeasure';
-import Attack from '../models/attack';
-import { volumeIntersection, calculateVolume, calculateCoverage } from '../Engines/AVEngine';
-import { generateVolumeObject } from '../Engines/message';
+import System from '../src/models/system';
+import Countermeasure from '../src/models/countermeasure';
+import Attack from '../src/models/attack';
+import { volumeIntersection, calculateVolume, calculateCoverage } from '../src/Engines/AVEngine';
+import { generateVolumeObject } from '../src/Engines/message';
 import { systemVolumeLarge } from './sampleTestData';
 
 describe('Countermeasure class', () => {

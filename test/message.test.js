@@ -1,6 +1,6 @@
 import { assert, expect } from 'chai';
 
-import { isValid, getRangeArray, getRangeIndexArray, generateVolumeObject } from '../Engines/message';
+import { isValid, getRangeArray, getRangeIndexArray, generateVolumeObject } from '../src/Engines/message';
 import { systemVolume, systemVolumeLarge, volumeOne, volumeTwo } from './sampleTestData';
 
 

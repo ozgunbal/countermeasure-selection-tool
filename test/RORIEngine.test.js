@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 
-import Attack from '../models/attack';
-import Countermeasure from '../models/countermeasure';
-import System from '../models/system';
-import { calculateRORIIndex } from '../Engines/RORIEngine.js'
+import Attack from '../src/models/attack';
+import Countermeasure from '../src/models/countermeasure';
+import System from '../src/models/system';
+import { calculateRORIIndex } from '../src/Engines/RORIEngine.js'
 import { systemVolumeLarge } from './sampleTestData';
 
 describe('RORI Engine', () => {

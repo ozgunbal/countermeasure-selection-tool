@@ -1,7 +1,7 @@
 import { assert, expect } from 'chai';
 
-import System from '../models/system';
-import { calculateVolume } from '../Engines/AVEngine';
+import System from '../src/models/system';
+import { calculateVolume } from '../src/Engines/AVEngine';
 import { systemVolume } from './sampleTestData';
 
 describe('System class', () => {

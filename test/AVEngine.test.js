@@ -8,7 +8,7 @@ import {
     intersectSingleAxis,
     unionSingleAxis,
     calculateCoverage
-} from '../Engines/AVEngine';
+} from '../src/Engines/AVEngine';
 
 import { systemVolume, volumeOne, volumeTwo } from './sampleTestData';
 
