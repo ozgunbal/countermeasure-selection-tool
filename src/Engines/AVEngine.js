@@ -65,6 +65,14 @@ export const calculateCoverage = (attackVolume, countermeasureVolume) => {
     return (intersectVol / attackVol) * 100;
 }
 
+export const generateRanges = volumeObject => {
+    const keys = Object.keys(volumeObject);
+    return keys.reduce((ranges, key) => {
+        ranges[key] = volumeObject[key].map(unit => unit.rangeIndex);
+        return ranges;
+    }, {});
+}
+
 // according to operation (union or intersection) generates a single volume object
 const volumeOperation = (operation, volumes) => {
     const RCU = ['resource', 'channel', 'userAccount'];
