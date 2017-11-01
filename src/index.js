@@ -9,7 +9,7 @@ import systemInfo from './DBs/systemDb'
 
 import { systemVolumeLarge, volumeOne } from '../test/sampleTestData';
 
-import { calculateSingleAxis, generateRanges } from './Engines/AVEngine';
+import { volumeSubstraction, volumeIntersection, calculateSingleAxis, generateRanges } from './Engines/AVEngine';
 import { getScatterPoints } from './Engines/message';
 import Highcharts from 'highcharts';
 import HighchartsExporting from 'highcharts/modules/exporting'
@@ -38,27 +38,41 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
             instance: new Countermeasure(string, efs, arcs, system)
         }
     });
-    const roriList = CMInstances.map(cm => ({
-        code: cm.code,
-        rori: calculateRORIIndex(system, attack, cm.instance),
-        scatterRanges: getScatterPoints(generateRanges(cm.instance.getVolumeObject(), systemInfo.volumeObject))
-    }));
-    console.log(roriList);
+    const roriList = CMInstances.map(cm => {
+        const onlyAttackVolume = volumeSubstraction([attack.getVolumeObject(), cm.instance.getVolumeObject()]);
+        console.log(onlyAttackVolume);
+        const onlyCMVolume = volumeSubstraction([cm.instance.getVolumeObject(), attack.getVolumeObject()]);
+        console.log(onlyCMVolume);
+        const coverageVolume = volumeIntersection([attack.getVolumeObject(), cm.instance.getVolumeObject()]);
+        console.log(coverageVolume);
+        return {
+            code: cm.code,
+            rori: calculateRORIIndex(system, attack, cm.instance),
+            coverage: cm.instance.getCoverage(attack.getVolumeObject()),
+            scatterRanges: {
+                onlyAttack: getScatterPoints(attack.getVolumeObject()),
+                onlyCM: getScatterPoints(generateRanges(cm.instance.getVolumeObject())),
+                coverage: getScatterPoints(generateRanges(coverageVolume))
+            }
+        };
+    });
+    return roriList;
 }
 
-simulate(systemInfo, attackInfo, countermeasureInfo);
+const RORIs = simulate(systemInfo, attackInfo, countermeasureInfo);
+console.log(RORIs);
 
 //chart parameters
-const resourceLimit = systemVolumeLarge.resource.length;
-const channelLimit = systemVolumeLarge.channel.length;
-const userAccountLimit = systemVolumeLarge.userAccount.length;
+const resourceLimit = systemInfo.volumeObject.resource.length;
+const channelLimit = systemInfo.volumeObject.channel.length;
+const userAccountLimit = systemInfo.volumeObject.userAccount.length;
 console.log(resourceLimit);
 console.log(channelLimit);
 console.log(userAccountLimit);
 
-/*let onlyAttack = getScatterPoints(generateRanges(, systemVolumeLarge));
-let onlyCM = getScatterPoints(generateRanges(, systemVolumeLarge));
-let cover = getScatterPoints(generateRanges(, systemVolumeLarge));*/
+let onlyAttack = RORIs[6].scatterRanges.onlyAttack;
+let onlyCM = RORIs[6].scatterRanges.onlyCM;
+let cover = RORIs[6].scatterRanges.coverage;
 
 document.addEventListener("DOMContentLoaded", function () {
     // Set up the chart
@@ -82,7 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         title: {
-            text: 'Attack Coverage'
+            text: `Attack Coverage of ${RORIs[6].code}` 
+        },
+        subtitle: {
+            text: `Coverage: ${RORIs[6].coverage}`
         },
         plotOptions: {
             scatter: {

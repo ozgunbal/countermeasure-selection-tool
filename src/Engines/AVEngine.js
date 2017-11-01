@@ -8,6 +8,11 @@ export const volumeUnion = (volumes) => (
     volumeOperation(unionSingleAxis, volumes)
 );
 
+// creates difference of two volume objects
+export const volumeSubstraction = (volumes) => (
+    volumeOperation(subtractSingleAxis, volumes)
+);
+
 // calculates numeric value from volume object
 export const calculateVolume = (volume) => {
     const resourceAxis = calculateSingleAxis(volume.resource);
@@ -21,6 +26,19 @@ export const calculateVolume = (volume) => {
 export const calculateSingleAxis = (axisElements) => (
     axisElements.reduce((axisLength, element) => axisLength + element.weight, 0)
 )
+
+export const subtractSingleAxis = (axes) => {
+    if (axes.length !== 2) throw new Error('There are no two axes');
+    const rangeArrays = axes.map(getElementRangeFromAxis);
+    const difference = rangeArrays[0].filter(rangeIndex => rangeArrays[1].indexOf(rangeIndex) < 0);
+
+    return difference.map(index => {
+        const match = rangeArrays[0].indexOf(index)
+        if (match > -1) {
+            return axes[0][match];
+        }
+    });
+}
 
 // generates intersection of given axes array
 export const intersectSingleAxis = (axes) => {
@@ -65,10 +83,11 @@ export const calculateCoverage = (attackVolume, countermeasureVolume) => {
     return (intersectVol / attackVol) * 100;
 }
 
+// generate array of ranges in the volume 
 export const generateRanges = volumeObject => {
     const keys = Object.keys(volumeObject);
     return keys.reduce((ranges, key) => {
-        ranges[key] = volumeObject[key].map(unit => unit.rangeIndex);
+        ranges[key] = getElementRangeFromAxis(volumeObject[key]);
         return ranges;
     }, {});
 }
@@ -84,9 +103,4 @@ const volumeOperation = (operation, volumes) => {
 }
 
 // generates an array of numbers which are rangeIndex'es of the each element 
-const getElementRangeFromAxis = (axis) => (
-    axis.reduce((arr, element) => {
-        arr.push(element.rangeIndex);
-        return arr;
-    }, [])
-);
+const getElementRangeFromAxis = (axis) => axis.map(element => element.rangeIndex);

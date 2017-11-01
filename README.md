@@ -16,7 +16,8 @@ Currently, there's only tests and code implementation
 ## Topic related
 - [X] Single RORI Index Calculation
 - [X] RORI Index with countermeasure combinations
-- [ ] Displaying Attack Volume 3D Graphs
+- [X] Displaying Attack Volume 3D Graphs
+- [ ] BUG: UNION is calculated wrong!! Maybe you should change data stucture
 - [ ] Store default countermeasures in JSON
 - [ ] Store default attacks in JSON
 

@@ -18,7 +18,7 @@ class Countermeasure {
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
-        return this.effectivenessFactor * calculateCoverage(attackVolumeObject, this.volumeObject) / 100;
+        return this.effectivenessFactor * this.getCoverage(attackVolumeObject);
     }
     getARC() {
         return this.annualResponseCost;
@@ -28,6 +28,9 @@ class Countermeasure {
     }
     getEF() {
         return this.effectivenessFactor;
+    }
+    getCoverage(attackVolumeObject) {
+        return calculateCoverage(attackVolumeObject, this.volumeObject) / 100;
     }
 }
 
