@@ -10,7 +10,7 @@ import systemInfo from './DBs/systemDb'
 import { systemVolumeLarge, volumeOne } from '../test/sampleTestData';
 
 import { volumeSubstraction, volumeIntersection, calculateSingleAxis, generateRanges } from './Engines/AVEngine';
-import { getScatterPoints } from './Engines/message';
+import { getRCUScatterPoints, getScatterPoints } from './Engines/message';
 import Highcharts from 'highcharts';
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsMore from 'highcharts-more';
@@ -40,11 +40,9 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
     });
     const roriList = CMInstances.map(cm => {
         const onlyAttackVolume = volumeSubstraction([attack.getVolumeObject(), cm.instance.getVolumeObject()]);
-        console.log(onlyAttackVolume);
         const onlyCMVolume = volumeSubstraction([cm.instance.getVolumeObject(), attack.getVolumeObject()]);
-        console.log(onlyCMVolume);
         const coverageVolume = volumeIntersection([attack.getVolumeObject(), cm.instance.getVolumeObject()]);
-        console.log(coverageVolume);
+        console.log(getRCUScatterPoints(generateRanges(cm.instance.getVolumeObject())));
         return {
             code: cm.code,
             rori: calculateRORIIndex(system, attack, cm.instance),

@@ -92,3 +92,20 @@ const getRangeArray = (start, end) => {
     if (diff < 1) throw Error('Zero or negative range');
     return Array.from(Array(diff).keys()).map(x => x + start);
 }
+
+// generates RCU scatter points from string
+export const getRCUScatterPoints = ranges => {
+    const points = [];
+    for(let i = 0; i < ranges.resource.length; i++){
+        for(let j = 0; j < ranges.channel.length; j++){
+            for(let k = 0; k < ranges.userAccount.length; k++){
+                points.push({
+                    resource: ranges.resource[i],
+                    channel: ranges.channel[j],
+                    userAccount: ranges.userAccount[k]
+                });
+            }
+        }
+    }
+    return points;
+}
