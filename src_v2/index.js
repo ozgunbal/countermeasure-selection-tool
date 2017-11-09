@@ -56,17 +56,30 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
     return roriList;
 }
 
+function visualizeRORIs (RORIs) {
+    var rorilist = document.querySelector('#rorilist');
+    console.log(rorilist);
+    var roriElement = RORIs.map(RORI => {
+        var div = document.createElement('div');
+        div.innerHTML = `Countermeasure: ${RORI.code} RORI Index: ${(RORI.rori).toFixed(3)} Coverage: ${(RORI.coverage * 100).toFixed(2)}%`;
+        console.log(div);
+        rorilist.appendChild(div);
+        return div;
+    });
+    //rorilist.appendChild(roriElement);
+}
+
 const RORIs = simulate(systemInfo, attackInfo, countermeasureInfo);
-console.log(RORIs);
+visualizeRORIs(RORIs);
 
 //chart parameters
 const resourceLimit = systemInfo.volumeObject.resource.length;
 const channelLimit = systemInfo.volumeObject.channel.length;
 const userAccountLimit = systemInfo.volumeObject.userAccount.length;
 
-let onlyAttack = RORIs[1].scatterRanges.onlyAttack;
-let onlyCM = RORIs[1].scatterRanges.onlyCM;
-let cover = RORIs[1].scatterRanges.coverage;
+let onlyAttack = RORIs[2].scatterRanges.onlyAttack;
+let onlyCM = RORIs[2].scatterRanges.onlyCM;
+let cover = RORIs[2].scatterRanges.coverage;
 
 document.addEventListener("DOMContentLoaded", function () {
     // Set up the chart
@@ -90,10 +103,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         title: {
-            text: `Attack Coverage of ${RORIs[1].code}` 
+            text: `Attack Coverage of ${RORIs[2].code}` 
         },
         subtitle: {
-            text: `Coverage: ${RORIs[1].coverage}`
+            text: `Coverage: ${RORIs[2].coverage}`
         },
         plotOptions: {
             scatter: {
@@ -137,7 +150,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
     });
 });
-
-const mapVolumeToScatterPoints = (volumeOne) => {
-
-} 

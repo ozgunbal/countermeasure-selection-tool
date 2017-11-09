@@ -8,8 +8,9 @@ Currently, there's only tests and code implementation
 - [X] bundling
 - [X] transpiling
 - [X] testing
-- [ ] UI for interaction
-- [ ] d3.js
+- [ ] UI for interaction (React)
+- [X] Highcharts
+- [ ] Web deploy
 - [ ] electron
 - [ ] User Interaction
 
@@ -17,7 +18,7 @@ Currently, there's only tests and code implementation
 - [X] Single RORI Index Calculation
 - [X] RORI Index with countermeasure combinations
 - [X] Displaying Attack Volume 3D Graphs
-- [ ] BUG: UNION is calculated wrong!! Maybe you should change data stucture
+- [X] BUG: UNION is calculated wrong!! Maybe you should change data stucture
 - [ ] Store default countermeasures in JSON
 - [ ] Store default attacks in JSON
 
