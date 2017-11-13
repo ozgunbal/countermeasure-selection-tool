@@ -5,6 +5,7 @@ import Rori from './Rori';
 
 const RoriList = ({ listData }) => (
     <div>
+        <span>Results</span>
         {listData.map((rori, index) => <Rori key={index} roriData={rori} />)}
     </div>
 )
