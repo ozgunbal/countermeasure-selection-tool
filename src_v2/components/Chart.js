@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Simulation from '../simulation';
-import ReactHighcharts  from 'react-highcharts';
+import ReactHighcharts from 'react-highcharts';
 import Highcharts3D from 'highcharts/highcharts-3d';
 Highcharts3D(ReactHighcharts.Highcharts);
 
-const Chart = ({ displayRori }) => <ReactHighcharts config = {getConfig(displayRori)}/>
+const Chart = ({ displayRori }) => (
+    <div style={{ width: '75%' }}>
+        <ReactHighcharts config={getConfig(displayRori)} />
+    </div>
+)
 
 const mapStateToProps = (state) => ({
     displayRori: state.roriDisplay
@@ -62,7 +66,7 @@ const config = {
         }
     },
     title: {
-        text: `Attack Coverage of ` 
+        text: `Attack Coverage of `
     },
     subtitle: {
         text: `Coverage: `

@@ -51,6 +51,10 @@ const simulation = () => {
     return simulate(systemInfo, attackInfo, countermeasureInfo);
 }
 
+const update = (newAttackInfo, newCountermeasureInfo) => {
+    return simulate(systemInfo, newAttackInfo, newCountermeasureInfo);
+}
+
 const chartLimits = {
     resource: systemInfo.volumeObject.resource.length,
     channel: systemInfo.volumeObject.channel.length,
@@ -59,5 +63,6 @@ const chartLimits = {
 
 export default {
     simulation,
-    chartLimits
+    chartLimits,
+    update
 }
