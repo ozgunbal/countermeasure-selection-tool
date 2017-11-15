@@ -10,14 +10,14 @@ import VolumeList from './VolumeList';
 
 const App = () => (
     <div>
-        <Header />
-        <div style={{display: 'flex'}} >
-            <VolumeList />
+        <div style={{ display: 'flex' }} >
             <Chart />
+            <VolumeList />
         </div>
         <AttackAdder />
         <CountermeasureAdder />
         <RoriList />
+        <Header />
     </div>
 )
 
