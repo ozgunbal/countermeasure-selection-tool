@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import Rori from './Rori';
 
 const RoriList = ({ listData }) => (
-    <div>
-        <span>Results</span>
+    <div style ={{
+        width: '100%',
+        }}>
         {listData.map((rori, index) => <Rori key={index} roriData={rori} />)}
     </div>
 )

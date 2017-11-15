@@ -6,7 +6,8 @@ const Header = () => {
         borderRadius: '5px',
         fontSize: '80%',
         fontFamily: 'sans-serif',
-        color: 'darkblue'
+        color: 'darkblue',
+        textAlign: 'center'
     }
     return(
         <div style={style}>

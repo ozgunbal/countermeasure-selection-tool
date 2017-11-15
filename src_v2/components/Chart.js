@@ -9,6 +9,15 @@ Highcharts3D(ReactHighcharts.Highcharts);
 const Chart = ({ displayRori }) => (
     <div style={{ width: '75%' }}>
         <ReactHighcharts config={getConfig(displayRori)} />
+        <div style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            marginBottom: '15px'
+        }}>
+            <div style={{ color: 'red' }}><b>Attacked Units</b> </div>
+            <div style={{ color: 'blue' }}><b>Countermeasured Units</b> </div>
+            <div style={{ color: 'purple' }}><b>Covered Units</b></div>
+        </div>
     </div>
 )
 

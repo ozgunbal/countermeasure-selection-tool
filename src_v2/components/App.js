@@ -9,8 +9,13 @@ import VolumeList from './VolumeList';
 
 
 const App = () => (
-    <div>
-        <div style={{ display: 'flex' }} >
+    <div style ={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center'
+    }}>
+        <div style={{ display: 'flex', width: '100%' }} >
             <Chart />
             <VolumeList />
         </div>

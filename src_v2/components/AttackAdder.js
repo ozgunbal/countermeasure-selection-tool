@@ -27,7 +27,6 @@ class AttackAdder extends React.Component {
     componentDidUpdate() {
         if (this.update) {
             const list = Simulation.update(this.props.attacks, this.props.countermeasures);
-            console.log(list);
             this.props.updateRoris(list);
             this.props.chartLoad(list[0]);
             this.update = false;

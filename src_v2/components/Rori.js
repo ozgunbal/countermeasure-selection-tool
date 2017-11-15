@@ -7,13 +7,12 @@ const Rori = ({ roriData, chartLoad }) => (
     <div style ={{
         width: '70%', 
         display: 'flex', 
-        alignContent: 'center',
         border: '1px solid black',
         borderRadius: '5px',
         fontSize: '80%',
         fontFamily: 'sans-serif',
         color: 'darkblue',
-        margin: '10px'
+        margin: '10px auto'
         }}>
         <span style = {{width: '40%'}}>{`Countermeasure: ${roriData.code} `}</span> 
         <span style = {{width: '25%'}}>{`RORI Index: ${(roriData.rori).toFixed(3)}`}</span>
