@@ -8,11 +8,11 @@ Currently, there's only tests and code implementation
 - [X] bundling
 - [X] transpiling
 - [X] testing
-- [ ] UI for interaction (React)
+- [X] UI for interaction (React)
 - [X] Highcharts
+- [ ] Use uglify with webpack
 - [ ] Web deploy
 - [ ] electron
-- [ ] User Interaction
 
 ## Topic related
 - [X] Single RORI Index Calculation

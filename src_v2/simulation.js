@@ -47,13 +47,21 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
     return roriList;
 }
 
-const simulation = () => {
-    return simulate(systemInfo, attackInfo, countermeasureInfo);
-}
+const simulation = () => (
+    simulate(systemInfo, attackInfo, countermeasureInfo)
+)
 
-const update = (newAttackInfo, newCountermeasureInfo) => {
-    return simulate(systemInfo, newAttackInfo, newCountermeasureInfo);
-}
+const update = (newAttackInfo, newCountermeasureInfo) => (
+    simulate(systemInfo, newAttackInfo, newCountermeasureInfo)
+)
+
+const infraUpdate = (infrastructureValue, aiv) => (
+    simulate({
+        ...systemInfo,
+        infrastructureValue,
+        aiv
+    }, attackInfo, countermeasureInfo)
+);
 
 const chartLimits = {
     resource: systemInfo.volumeObject.resource.length,
@@ -64,5 +72,6 @@ const chartLimits = {
 export default {
     simulation,
     chartLimits,
-    update
+    update,
+    infraUpdate,
 }
