@@ -37,6 +37,7 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
             code: cm.code,
             rori: calculateRORIIndex(system, attack, cm.instance),
             coverage: cm.instance.getCoverage(attack.getVolumeObject()),
+            arc: cm.instance.getARC(),
             scatterRanges: {
                 onlyAttack: getScatterPoints(onlyAttackVolume),
                 onlyCM: getScatterPoints(onlyCMVolume),
