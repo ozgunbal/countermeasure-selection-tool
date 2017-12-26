@@ -6,9 +6,9 @@ import ReactHighcharts from 'react-highcharts';
 import Highcharts3D from 'highcharts/highcharts-3d';
 Highcharts3D(ReactHighcharts.Highcharts);
 
-const Chart = ({ displayRori }) => (
+const Chart = ({ displayRori, roris }) => (
     <div style={{ width: '75%' }}>
-        <ReactHighcharts config={getConfig(displayRori)} />
+        <ReactHighcharts config={getLineChartConfig(roris)} />
         <div style={{
             display: 'flex',
             justifyContent: 'space-around',
@@ -22,13 +22,35 @@ const Chart = ({ displayRori }) => (
 )
 
 const mapStateToProps = (state) => ({
-    displayRori: state.roriDisplay
+    displayRori: state.roriDisplay,
+    roris: state.roriList,
 })
 
 export default connect(
     mapStateToProps
 )(Chart);
 
+const getLineChartConfig = (rorilist) => {
+    const data2D = rorilist.sort((a,b) => a.arc - b.arc).map(rori => [rori.arc, rori.coverage * 100]);
+    const config = {
+        title: {
+            text: `Coverage / Annual Response Cost`
+        },
+        xAxis: {
+            min: 0,
+            title: 'Annual Response Cost (ARC)'
+        },
+        yAxis: {
+            min: 0,
+            max: 100,
+            title: 'Coverage'
+        },
+        series: [{
+            data: data2D
+        }]
+    }
+    return config;
+}
 const getConfig = (rori) => {
     const tempConfig = Object.assign(config);
     tempConfig.title.text = `Attack Coverage of ${rori.code}`
