@@ -17,7 +17,7 @@ class CountermeasureAdder extends React.Component {
         this.update = true;
     }
     handleChange(evt) {
-        if (evt.target.name === "ef" || evt.target.name === "arc") {
+        if (evt.target.name === "ef") {
             const value = Number(evt.target.value)
             this.setState({ [evt.target.name]: value });
         } else {
@@ -38,7 +38,6 @@ class CountermeasureAdder extends React.Component {
                 <input type="text" name="code" placeholder="C4"></input>
                 <input type="text" name="rcu" placeholder="R(5)C(5)U(5)"></input>
                 <input type="text" name="ef" placeholder="0.75"></input>
-                <input type="text" name="arc" placeholder="700"></input>
                 <button onClick={this.handleCountermeasureAdd}>Add Countermeasure</button>
             </div>
         )

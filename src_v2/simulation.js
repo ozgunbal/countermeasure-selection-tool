@@ -22,11 +22,10 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
         const code = comb.map(cm => cm.code);
         const string = comb.map(cm => cm.rcu);
         const efs = comb.map(cm => cm.ef);
-        const arcs = comb.map(cm => cm.arc);
 
         return {
             code: code.sort().join('-'),
-            instance: new Countermeasure(string, efs, arcs, system)
+            instance: new Countermeasure(string, efs, system)
         }
     });
     const roriList = CMInstances.map(cm => {

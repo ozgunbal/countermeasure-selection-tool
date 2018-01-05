@@ -2,7 +2,7 @@ import { generateScatterVolume } from '../Engines/message';
 import { calculateScatterCoverage, volumeUnionScatter, calculateVolumeWithScatter } from '../Engines/AVEngine';
 
 class Countermeasure {
-    constructor(countermeasureStrings, EFs, ARCs, system){
+    constructor(countermeasureStrings, EFs, system){
         const systemVolumeObject = system.getVolumeObject();
 
         if (countermeasureStrings.length > 1) {
@@ -17,7 +17,7 @@ class Countermeasure {
         this.volume = calculateVolumeWithScatter(this.volumeObject);
         //this.volume = calculateVolume(this.volumeObject);
         this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
-        this.annualResponseCost = ARCs.reduce((a,b) => a+b);
+        this.annualResponseCost = this.volume * 5 + 100;
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
