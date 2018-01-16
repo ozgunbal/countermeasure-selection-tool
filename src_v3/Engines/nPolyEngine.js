@@ -67,3 +67,26 @@ export const unionSingleAxis = (axes) => {
 
 // generates an array of numbers which are rangeIndex'es of the each element 
 const getElementRangeFromAxis = (axis) => axis.map(element => element.rangeIndex);
+
+export const getPerimeter = dimensions => {
+    // Cosinus therom for lengths
+    const degree = 2 * Math.PI / dimensions.length;
+    const lengths = dimensions.map((dim, i, arr) => {
+        const nextIndex = (i + 1) % arr.length;
+        const a = dim;
+        const b = arr[nextIndex];
+        const length = Math.sqrt(
+            a*a + b*b - (2*a*b*Math.cos(degree))
+        );
+        return length;
+    })
+    return Math.round(lengths.reduce((a,b) => a + b));
+}
+export const getArea = dimensions => {
+    const multipliedDimension = dimensions.map((dim, i, arr) => {
+        const nextIndex = (i + 1) % arr.length;
+        return dim * arr[nextIndex]; 
+    });
+    // sums / 2
+    return Math.round(multipliedDimension.reduce((a,b) => a + b) / 2);
+}

@@ -9,7 +9,7 @@ import VolumeList from './VolumeList';
 
 
 const Top = () => (
-    <div style={appStyle}>
+    <div style={containerStyle}>
         <div style={divStyle} >
             <Chart />
             <VolumeList />
@@ -21,7 +21,7 @@ const Top = () => (
     </div>
 );
 
-const appStyle = {
+const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
