@@ -26,10 +26,11 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
             instance: new Countermeasure(string, efs, system)
         }
     });
-    return {
+    return CMInstances.map(cm => ({
+        code: cm.code,
         attack: attack.getDimensions(system),
-        cms: CMInstances.map(cm => cm.instance.getDimensions(system))
-    };
+        cm: cm.instance.getDimensions(system)
+    }));
 }
 
 const simulation = () => (

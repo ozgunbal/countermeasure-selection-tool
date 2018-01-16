@@ -17,3 +17,8 @@ export const updateRoris = list => ({
     type: 'UPDATE_RORIS',
     list
 });
+
+export const changeDisplayPoly = poly => ({
+    type: 'CHANGE_DISPLAY_POLY',
+    poly
+});

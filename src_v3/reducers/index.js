@@ -1,9 +1,10 @@
-import Simulation from '../simulation';
+import roriSimulation from '../simulation';
+import polySimulation from '../nPolySimulation'
 import { combineReducers } from 'redux';
 import volumes from './volume';
 
-const roris = Simulation.simulation();
-//const roris = [""];
+const roris = roriSimulation.simulation();
+const polies = polySimulation.simulation();
 
 const roriDisplay = (state = roris[0], action) => {
     switch(action.type) {
@@ -23,10 +24,30 @@ const roriList = (state = roris, action) => {
     }
 }
 
+const polygonAreas = (state = polies, action) => {
+    switch(action.type) {
+    case 'UPDATE_POLIES':
+        return action.list;
+    default:
+        return state;
+    }
+}
+
+const polyDisplay = (state = polies[0], action) => {
+    switch(action.type) {
+    case 'CHANGE_DISPLAY_POLY':
+        return action.poly;
+    default:
+        return state;
+    }
+}
+
 const rori = combineReducers({
     roriDisplay,
     roriList,
     volumes,
+    polygonAreas,
+    polyDisplay,
 })
 
 export default rori;
