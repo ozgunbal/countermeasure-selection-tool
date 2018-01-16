@@ -1,10 +1,6 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import rori from './reducers'
 
-const configureStore = () => {
-    return createStore(
-        rori
-    );
-}
+const configureStore = () => createStore(rori);
 
 export default configureStore;

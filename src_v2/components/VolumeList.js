@@ -8,7 +8,6 @@ class VolumeList extends Component {
     constructor(props) {
         super(props);
         this.changeHandler = this.changeHandler.bind(this);
-        //this.calculate = this.calculate.bind(this);
         this.state = {
             iv: 4500,
             aiv: 700
@@ -22,15 +21,6 @@ class VolumeList extends Component {
             this.props.chartLoad(list[0]);
         });
     }
-    /*calculate() {
-        const { iv, aiv } = this.state;
-        const list = Simulation.infraUpdate(Number(iv), Number(aiv));
-        this.props.updateRoris(list);
-        this.props.chartLoad(list[0]);
-
-        Calculate manually:
-        <button onClick={this.calculate}>Calculate</button>
-    }*/
     render() {
         const { attacks, countermeasures } = this.props;
         const { iv, aiv } = this.state;

@@ -8,7 +8,7 @@ class RoriList extends Component {
         super(props);
         this.state = {
             coverage: null,
-            arc: null
+            arc: null,
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -18,9 +18,7 @@ class RoriList extends Component {
     }
     render() {
         const { coverage, arc } = this.state;
-        console.log(this.state);
         const listData = this.props.listData.filter(rori => {
-            console.log(rori);
             if (coverage && arc) {
                 return rori.coverage >= this.state.coverage && rori.arc <= this.state.arc
             } else if (coverage) {
@@ -44,14 +42,6 @@ class RoriList extends Component {
     }
 }
 
-/*const RoriList = ({listData}) => (
-    <div style={{
-                    width: '100%',
-                }}>
-                    {listData.map((rori, index) => <Rori key={index} roriData={rori} />)}
-                </div>
-                )
-*/
 const mapStateToProps = (state) => ({
     listData: state.roriList
 })

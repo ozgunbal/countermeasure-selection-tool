@@ -8,14 +8,10 @@ class Countermeasure {
         if (countermeasureStrings.length > 1) {
             const volumeObjects = countermeasureStrings.map(countermeasureString => generateScatterVolume(countermeasureString, systemVolumeObject));
             this.volumeObject = volumeUnionScatter(volumeObjects);
-            /*const volumeObjects = countermeasureStrings.map(countermeasureString => generateVolumeObject(countermeasureString, systemVolumeObject));
-            this.volumeObject = volumeIntersection(volumeObjects);*/
         } else {
             this.volumeObject = generateScatterVolume(countermeasureStrings[0], systemVolumeObject)
-            // this.volumeObject = generateVolumeObject(countermeasureStrings[0], systemVolumeObject)
         }
         this.volume = calculateVolumeWithScatter(this.volumeObject);
-        //this.volume = calculateVolume(this.volumeObject);
         this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
         this.annualResponseCost = this.volume * 5 + 100;
     }
@@ -34,7 +30,6 @@ class Countermeasure {
     }
     getCoverage(attackVolumeObject) {
         return calculateScatterCoverage(attackVolumeObject, this.volumeObject) / 100;
-        //return calculateCoverage(attackVolumeObject, this.volumeObject) / 100;
     }
 }
 
