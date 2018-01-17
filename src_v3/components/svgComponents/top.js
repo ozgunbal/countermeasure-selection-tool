@@ -6,7 +6,7 @@ import Areas from './areas';
 import CMList from './cmlist';
 import { generatePolygons } from './svgCalculateUtils';
 
-const Top = ({ size, dims, code }) => (
+const Top = ({ size=200, dims, code }) => (
     <div style={{ display: 'flex', width: '100%' }}>
         <div style={containerStyle}>
             <h3>Countermeasure: {code}</h3>

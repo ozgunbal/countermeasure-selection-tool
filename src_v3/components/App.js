@@ -1,11 +1,17 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+
 import PolygonModel from './svgComponents/top';
-import Rori from './roriComponents/top';
+import VolumeModule from './roriComponents/top';
+import Header from './header';
 
 const Root = () => (
     <div>
-        <PolygonModel size ={200}/>
-        <Rori/>
+        <Header/>
+        <Switch>
+            <Route path='/volume' component={VolumeModule}/>
+            <Route path='/polygon' component={PolygonModel}/>
+        </Switch>
     </div>
 );
 
