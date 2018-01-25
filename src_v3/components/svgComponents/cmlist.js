@@ -7,13 +7,13 @@ const CMList = ({ list, changePoly }) => (
     <div style={{ width: '50%' }}>
         <ul style={{ width: '100%' }}>
             <li style={{ ...containerStyle, height: 20 }}>
-                <div style={{ width: '15%' }}>S </div>
+                <div style={{ width: '15%' }}>System</div>
                 <div style={{ width: '30%' }}>Perimeter: {list[0].systemP} units</div>
                 <div style={{ width: '30%' }}>Area: {list[0].systemA} units^2</div>
                 <div style={{ width: '20%' }}></div>
             </li>
             <li style={{ ...containerStyle, height: 20 }}>
-                <div style={{ width: '15%' }}>A </div>
+                <div style={{ width: '15%' }}>Attack</div>
                 <div style={{ width: '30%' }}>Perimeter: {list[0].attackP} units</div>
                 <div style={{ width: '30%' }}>Area: {list[0].attackA} units^2</div>
                 <div style={{ width: '20%' }}></div>

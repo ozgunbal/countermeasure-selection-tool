@@ -43,7 +43,7 @@ class Chart extends Component {
                 break;
         }
         return (
-            <div style={{ width: '75%' }}>
+            <div>
                 <div>
                     <button onClick={this.buttonHandler} value ="3d">3D Volume Model</button>
                     <button onClick={this.buttonHandler} value ="cov-arc">COV/ARC</button>

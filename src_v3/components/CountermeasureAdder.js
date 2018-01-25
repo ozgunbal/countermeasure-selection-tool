@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addCountermeasure, updateRoris, changeChart } from '../../actions';
-import Simulation from '../../simulation';
+import { addCountermeasure, updateRoris, changeChart } from '../actions';
+import Simulation from '../simulation';
 
 class CountermeasureAdder extends React.Component {
     constructor(props) {
@@ -34,11 +34,17 @@ class CountermeasureAdder extends React.Component {
     }
     render() {
         return (
-            <div onChange={this.handleChange}>
-                <input type="text" name="code" placeholder="C4"></input>
-                <input type="text" name="rcu" placeholder="R(5)C(5)U(5)"></input>
-                <input type="text" name="ef" placeholder="0.75"></input>
-                <button onClick={this.handleCountermeasureAdd}>Add Countermeasure</button>
+            <div style={{border: '1px solid black', margin: 10}}>
+                <div><strong>Countermeasures</strong></div>
+                {
+                    this.props.countermeasures.map((countermeasure, i) => <div key={i}>{`${countermeasure.code}: ${countermeasure.rcu}`}</div>)
+                }
+                <div onChange={this.handleChange}>
+                    <input type="text" name="code" placeholder="C4"></input>
+                    <input type="text" name="rcu" placeholder="R(5)C(5)U(5)"></input>
+                    <input type="text" name="ef" placeholder="0.75"></input>
+                    <button onClick={this.handleCountermeasureAdd}>Add Countermeasure</button>
+                </div>
             </div>
         )
     }

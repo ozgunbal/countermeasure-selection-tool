@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addAttack, updateRoris, changeChart } from '../../actions';
-import Simulation from '../../simulation';
+import { addAttack, updateRoris, changeChart } from '../actions';
+import Simulation from '../simulation';
 
 class AttackAdder extends React.Component {
     constructor(props) {
@@ -34,11 +34,17 @@ class AttackAdder extends React.Component {
     }
     render() {
         return (
-            <div onChange={this.handleChange}>
-                <input type="text" name="code" placeholder="A3"></input>
-                <input type="text" name="rcu" placeholder="R(2)C(2)U(5)"></input>
-                <input type="number" name="aro" placeholder="9"></input>
-                <button onClick={this.handleAttackAdd}>Add Attack</button>
+            <div style={{border: '1px solid black' , margin: 10}}>
+                <div><strong>Attacks</strong></div>
+                {
+                    this.props.attacks.map((attack, i) => <div key={i}>{`${attack.code}: ${attack.rcu}`}</div>)
+                }
+                <div onChange={this.handleChange}>
+                    <input type="text" name="code" placeholder="A3"></input>
+                    <input type="text" name="rcu" placeholder="R(2)C(2)U(5)"></input>
+                    <input type="number" name="aro" placeholder="9"></input>
+                    <button onClick={this.handleAttackAdd}>Add Attack</button>
+                </div>
             </div>
         )
     }
