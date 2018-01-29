@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 import { updateRoris, changeChart } from '../actions';
 import Simulation from '../simulation';
-import { Jumbotron, Table } from 'react-bootstrap';
+import { Jumbotron, Row, Col } from 'react-bootstrap';
+import DimensionTable from './dimensionTable';
+import { tableData } from '../DBs/systemDb';
 
 class VolumeList extends Component {
     constructor(props) {
@@ -25,24 +27,27 @@ class VolumeList extends Component {
     render() {
         const { iv, aiv } = this.state;
         return (
-            <Jumbotron style = {{margin:"2%", borderRadius:"10px"}}>
-                <div>
-                    <h4>System</h4>
-                    <div>
-                        <div>Infrastructure Value: {iv}</div>
+            <Jumbotron style={{ marginLeft: "12%", marginRight: "12%", borderRadius: 10, padding: 0 }}>
+                <Row className="show-grid">
+                    <Col xs={6} xsOffset={5}><h4><strong>System</strong></h4></Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col xs={6} xsOffset={3}>
+                        <div>Complete System Infrastructure Value: {iv}</div>
                         <input name="iv" type="range" min="1000" max="10000" step="500" value={iv} onChange={this.changeHandler} />
-                    </div>
-                    <div>
-                        <div>AIV: {aiv}</div>
+                    </Col>
+                </Row>
+                <Row className="show-grid" style={{ marginBottom: 15 }}>
+                    <Col xs={6} xsOffset={3}>
+                        <div>Annual Infrastructure Value: {aiv}</div>
                         <input name="aiv" type="range" min="0" max="1000" step="50" value={aiv} onChange={this.changeHandler} />
-                    </div>
-                    <div><u>Resources</u></div>
-                    <div>(1-2)[w:7] (3-4)[w:5] (5-6)[w:3]</div>
-                    <div><u>Channels</u></div>
-                    <div>(1)[w:9] (2-3)[w:5] (4-5)[w:2]</div>
-                    <div><u>User Accounts</u></div>
-                    <div>(1-2)[w:9] (3-4)[w:8] (5-6)[w:1]</div>
-                </div>
+                    </Col>
+                </Row>
+                <Row className="show-grid">
+                    <Col xs={8} xsOffset={2}>
+                        <DimensionTable system={tableData} />
+                    </Col>
+                </Row>
             </Jumbotron>
         );
     }

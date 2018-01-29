@@ -98,4 +98,58 @@ const system = {
     },
 };
 
+export const tableData = {
+    resource: [
+        {
+            description: 'Server',
+            quantity: 2,
+            weight: 7,
+        },
+        {
+            description: 'Power Supply',
+            weight: 5,
+            quantity: 2,
+        },
+        {
+            description: 'PC',
+            weight: 3,
+            quantity: 2,
+        }
+    ],
+    channel: [
+        {
+            description: 'TCP',
+            weight: 9,
+            quantity: 1,
+        },
+        {
+            description: 'IP',
+            weight: 5,
+            quantity: 2,
+        },
+        {
+            description: 'Other',
+            weight: 2,
+            quantity: 2,           
+        },
+    ],
+    userAccount: [
+        {
+            description: 'Super Admin',
+            weight: 9,
+            quantity: 2,
+        },
+        {
+            description: 'Admin',
+            weight: 8,
+            quantity: 2,
+        },
+        {
+            description: 'User',
+            weight: 1,
+            quantity: 2
+        },
+    ],
+}
+
 export default system;

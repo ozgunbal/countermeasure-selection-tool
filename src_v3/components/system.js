@@ -1,14 +1,13 @@
 import React from 'react';
-import AttackAdder from './AttackAdder';
-import CountermeasureAdder from './CountermeasureAdder';
+import Adder from './adder';
 import VolumeList from './VolumeList';
+import { Grid } from 'react-bootstrap';
 
 const System = () => (
-    <div>
+    <Grid>
         <VolumeList />
-        <AttackAdder />
-        <CountermeasureAdder />
-    </div>
+        <Adder/>
+    </Grid>
 );
 
 export default System;
