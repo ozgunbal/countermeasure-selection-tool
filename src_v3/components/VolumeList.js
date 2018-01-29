@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { updateRoris, changeChart } from '../actions';
 import Simulation from '../simulation';
+import { Jumbotron, Table } from 'react-bootstrap';
 
 class VolumeList extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class VolumeList extends Component {
     render() {
         const { iv, aiv } = this.state;
         return (
-            <div style={{border: '1px solid black', margin: 10}}>
+            <Jumbotron style = {{margin:"2%", borderRadius:"10px"}}>
                 <div>
                     <h4>System</h4>
                     <div>
@@ -42,7 +43,7 @@ class VolumeList extends Component {
                     <div><u>User Accounts</u></div>
                     <div>(1-2)[w:9] (3-4)[w:8] (5-6)[w:1]</div>
                 </div>
-            </div>
+            </Jumbotron>
         );
     }
 };

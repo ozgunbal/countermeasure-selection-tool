@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { addAttack, updateRoris, changeChart } from '../actions';
 import Simulation from '../simulation';
+import { Button, Jumbotron } from 'react-bootstrap';
 
 class AttackAdder extends React.Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class AttackAdder extends React.Component {
     }
     render() {
         return (
-            <div style={{border: '1px solid black' , margin: 10}}>
+            <Jumbotron style = {{margin:"2%", borderRadius: 10}}>
                 <div><strong>Attacks</strong></div>
                 {
                     this.props.attacks.map((attack, i) => <div key={i}>{`${attack.code}: ${attack.rcu}`}</div>)
@@ -43,9 +44,9 @@ class AttackAdder extends React.Component {
                     <input type="text" name="code" placeholder="A3"></input>
                     <input type="text" name="rcu" placeholder="R(2)C(2)U(5)"></input>
                     <input type="number" name="aro" placeholder="9"></input>
-                    <button onClick={this.handleAttackAdd}>Add Attack</button>
+                    <Button bsStyle="primary" onClick={this.handleAttackAdd}>Add Attack</Button>
                 </div>
-            </div>
+            </Jumbotron>
         )
     }
 }

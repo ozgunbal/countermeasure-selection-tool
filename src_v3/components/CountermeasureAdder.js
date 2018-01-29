@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { addCountermeasure, updateRoris, changeChart } from '../actions';
 import Simulation from '../simulation';
+import { Button, Jumbotron } from 'react-bootstrap';
 
 class CountermeasureAdder extends React.Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class CountermeasureAdder extends React.Component {
     }
     render() {
         return (
-            <div style={{border: '1px solid black', margin: 10}}>
+            <Jumbotron style = {{margin:"2%", borderRadius: 10}}>
                 <div><strong>Countermeasures</strong></div>
                 {
                     this.props.countermeasures.map((countermeasure, i) => <div key={i}>{`${countermeasure.code}: ${countermeasure.rcu}`}</div>)
@@ -45,7 +46,7 @@ class CountermeasureAdder extends React.Component {
                     <input type="text" name="ef" placeholder="0.75"></input>
                     <button onClick={this.handleCountermeasureAdd}>Add Countermeasure</button>
                 </div>
-            </div>
+            </Jumbotron>
         )
     }
 }
