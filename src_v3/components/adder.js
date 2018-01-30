@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addAttack, updateRoris, changeChart, addCountermeasure } from '../actions';
+import { addAttack, updateRoris, changeChart, addCountermeasure, updatePolies, changeDisplayPoly } from '../actions';
 import Simulation from '../simulation';
+import nPolySimulation from '../nPolySimulation';
 import { Button, Jumbotron, FormControl, Row, Col } from 'react-bootstrap';
 import attack from '../models/attack';
 
@@ -44,8 +45,11 @@ class Adder extends React.Component {
     componentDidUpdate() {
         if (this.update) {
             const list = Simulation.update(this.props.attacks, this.props.countermeasures);
+            const polyList = nPolySimulation.update(this.props.attacks, this.props.countermeasures);
             this.props.updateRoris(list);
             this.props.chartLoad(list[0]);
+            this.props.updatePolyList(polyList);
+            this.props.changePolyDisplay(polyList[0]);
             this.update = false;
         }
     }
@@ -106,7 +110,9 @@ const mapDispatchToProps = dispatch => ({
     addAttackVolume: volume => dispatch(addAttack(volume)),
     addCountermeasureVolume: volume => dispatch(addCountermeasure(volume)),
     updateRoris: list => dispatch(updateRoris(list)),
-    chartLoad: rori => dispatch(changeChart(rori))
+    chartLoad: rori => dispatch(changeChart(rori)),
+    updatePolyList: list => dispatch(updatePolies(list)),
+    changePolyDisplay: poly => dispatch(changeDisplayPoly(poly)),
 });
 
 export default connect(

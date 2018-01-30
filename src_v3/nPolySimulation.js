@@ -46,6 +46,11 @@ const simulation = () => (
     simulate(systemInfo, attackInfo, countermeasureInfo)
 )
 
+const update = (newAttackInfo, newCountermeasureInfo) => (
+    simulate(systemInfo, newAttackInfo, newCountermeasureInfo)
+);
+
 export default {
     simulation,
+    update,
 }

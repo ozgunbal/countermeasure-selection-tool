@@ -22,3 +22,8 @@ export const changeDisplayPoly = poly => ({
     type: 'CHANGE_DISPLAY_POLY',
     poly
 });
+
+export const updatePolies = list => ({
+    type: 'UPDATE_POLIES',
+    list
+});
