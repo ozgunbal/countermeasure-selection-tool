@@ -13,7 +13,7 @@ module.exports = {
     context: path.join(__dirname, 'src_v3'),
     entry: './index.js',
     output: {
-        path: path.resolve('dist'),
+        path: path.resolve('build'),
         filename: 'bundle.js'
     },
     module: {
