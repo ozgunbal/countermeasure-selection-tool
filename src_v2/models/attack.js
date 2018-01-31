@@ -8,13 +8,10 @@ class Attack {
         if (attackStrings.length > 1) {
             const volumeObjects = attackStrings.map(attackString => generateScatterVolume(attackString, systemVolumeObject));
             this.volumeObject = volumeUnionScatter(volumeObjects);
-            /*const volumeObjects = attackStrings.map(attackString => generateVolumeObject(attackString, systemVolumeObject));
-            this.volumeObject = volumeUnion(volumeObjects);*/
         } else {
             this.volumeObject = generateScatterVolume(attackStrings[0], systemVolumeObject);
         }
 
-        //this.volume = calculateVolume(this.volumeObject);
         this.volume = calculateVolumeWithScatter(this.volumeObject)
         this.singleLossExpectancy = system.getConversionFactor() * this.volume;
         this.annualRateOfOccurence = annualRateOfOccurence;

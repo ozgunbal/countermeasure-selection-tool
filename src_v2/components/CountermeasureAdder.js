@@ -17,7 +17,7 @@ class CountermeasureAdder extends React.Component {
         this.update = true;
     }
     handleChange(evt) {
-        if (evt.target.name === "ef" || evt.target.name === "arc") {
+        if (evt.target.name === "ef") {
             const value = Number(evt.target.value)
             this.setState({ [evt.target.name]: value });
         } else {
@@ -34,31 +34,26 @@ class CountermeasureAdder extends React.Component {
     }
     render() {
         return (
-            <div onChange={this.handleChange.bind(this)}>
+            <div onChange={this.handleChange}>
                 <input type="text" name="code" placeholder="C4"></input>
                 <input type="text" name="rcu" placeholder="R(5)C(5)U(5)"></input>
                 <input type="text" name="ef" placeholder="0.75"></input>
-                <input type="text" name="arc" placeholder="700"></input>
                 <button onClick={this.handleCountermeasureAdd}>Add Countermeasure</button>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        attacks: state.volumes.attacks,
-        countermeasures: state.volumes.countermeasures
-    }
-}
+const mapStateToProps = (state) => ({
+    attacks: state.volumes.attacks,
+    countermeasures: state.volumes.countermeasures
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addCountermeasureVolume: (volume) => dispatch(addCountermeasure(volume)),
-        updateRoris: (list) => dispatch(updateRoris(list)),
-        chartLoad: (rori) => dispatch(changeChart(rori))
-    }
-}
+const mapDispatchToProps = dispatch => ({
+    addCountermeasureVolume: volume => dispatch(addCountermeasure(volume)),
+    updateRoris: list => dispatch(updateRoris(list)),
+    chartLoad: rori => dispatch(changeChart(rori))
+});
 
 export default connect(
     mapStateToProps,

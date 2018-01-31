@@ -34,7 +34,7 @@ class AttackAdder extends React.Component {
     }
     render() {
         return (
-            <div onChange={this.handleChange.bind(this)}>
+            <div onChange={this.handleChange}>
                 <input type="text" name="code" placeholder="A3"></input>
                 <input type="text" name="rcu" placeholder="R(2)C(2)U(5)"></input>
                 <input type="number" name="aro" placeholder="9"></input>
@@ -44,22 +44,16 @@ class AttackAdder extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        attacks: state.volumes.attacks,
-        countermeasures: state.volumes.countermeasures
-    }
-}
+const mapStateToProps = state => ({
+    attacks: state.volumes.attacks,
+    countermeasures: state.volumes.countermeasures
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addAttackVolume: (volume) => dispatch(addAttack(volume)),
-        updateRoris: (list) => dispatch(updateRoris(list)),
-        chartLoad: (rori) => dispatch(changeChart(rori))
-    }
-}
-
-
+const mapDispatchToProps = dispatch => ({
+    addAttackVolume: volume => dispatch(addAttack(volume)),
+    updateRoris: list => dispatch(updateRoris(list)),
+    chartLoad: rori => dispatch(changeChart(rori))
+});
 
 export default connect(
     mapStateToProps,

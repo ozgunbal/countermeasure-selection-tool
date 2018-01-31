@@ -9,13 +9,8 @@ import VolumeList from './VolumeList';
 
 
 const App = () => (
-    <div style ={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'center'
-    }}>
-        <div style={{ display: 'flex', width: '100%' }} >
+    <div style={appStyle}>
+        <div style={divStyle} >
             <Chart />
             <VolumeList />
         </div>
@@ -24,6 +19,15 @@ const App = () => (
         <RoriList />
         <Header />
     </div>
-)
+);
+
+const appStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+};
+
+const divStyle = { display: 'flex', width: '100%' };
 
 export default App;

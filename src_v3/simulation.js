@@ -29,13 +29,13 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
         }
     });
     const roriList = CMInstances.map(cm => {
-        const onlyAttackVolume = volumeSubtractionScatter([attack.getVolumeObject(), cm.instance.getVolumeObject()]);
-        const onlyCMVolume = volumeSubtractionScatter([cm.instance.getVolumeObject(), attack.getVolumeObject()]);
-        const coverageVolume = volumeIntersectionScatter([attack.getVolumeObject(), cm.instance.getVolumeObject()]);
+        const onlyAttackVolume = volumeSubtractionScatter([attack.getScatterVolumeObject(), cm.instance.getScatterVolumeObject()]);
+        const onlyCMVolume = volumeSubtractionScatter([cm.instance.getScatterVolumeObject(), attack.getScatterVolumeObject()]);
+        const coverageVolume = volumeIntersectionScatter([attack.getScatterVolumeObject(), cm.instance.getScatterVolumeObject()]);
         return {
             code: cm.code,
             rori: calculateRORIIndex(system, attack, cm.instance),
-            coverage: cm.instance.getCoverage(attack.getVolumeObject()),
+            coverage: cm.instance.getCoverage(attack.getScatterVolumeObject()),
             arc: cm.instance.getARC(),
             scatterRanges: {
                 onlyAttack: getScatterPoints(onlyAttackVolume),

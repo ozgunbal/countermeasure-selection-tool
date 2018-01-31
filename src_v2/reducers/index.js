@@ -25,7 +25,7 @@ const roriList = (state = roris, action) => {
 const rori = combineReducers({
     roriDisplay,
     roriList,
-    volumes
+    volumes,
 })
 
 export default rori;

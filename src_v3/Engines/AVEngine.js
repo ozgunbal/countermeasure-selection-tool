@@ -11,6 +11,44 @@ export const calculateVolume = (volume) => {
 export const calculateSingleAxis = (axisElements) => (
     axisElements.reduce((axisLength, element) => axisLength + element.weight, 0)
 )
+
+// creates union volume object
+export const volumeUnion = (volumes) => (
+    volumeOperation(unionSingleAxis, volumes)
+);
+
+// generates union of given axes array
+export const unionSingleAxis = (axes) => {
+    const rangeArrays = axes.map(getElementRangeFromAxis);
+    const sets = rangeArrays.map(rangeArray => new Set(rangeArray));
+
+    const union = sets.reduce((prevSet, set) => (
+        new Set([...prevSet, ...set])
+    ));
+
+    return [...union].sort().map(index => {
+        for (let i = 0; i < rangeArrays.length; i++) {
+            const match = rangeArrays[i].indexOf(index);
+            if (match > -1) {
+                return axes[i][match];
+            }
+        }
+    });
+}
+
+// generates an array of numbers which are rangeIndex'es of the each element 
+const getElementRangeFromAxis = (axis) => axis.map(element => element.rangeIndex);
+
+// according to operation (union or intersection) generates a single volume object
+const volumeOperation = (operation, volumes) => {
+    const RCU = ['resource', 'channel', 'userAccount'];
+    return RCU.reduce((operatedObject, element) => {
+        const elements = volumes.map(volume => volume[element]);
+        operatedObject[element] = operation(elements);
+        return operatedObject;
+    }, {});
+}
+
 /*
 V2
  */
