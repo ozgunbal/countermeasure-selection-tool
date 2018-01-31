@@ -5,6 +5,7 @@ import volumes from './volume';
 
 const roris = roriSimulation.simulation();
 const polies = polySimulation.simulation();
+const initialSystem = {iv: 4500, aiv: 700};
 
 const roriDisplay = (state = roris[0], action) => {
     switch(action.type) {
@@ -42,12 +43,22 @@ const polyDisplay = (state = polies[0], action) => {
     }
 }
 
+const system = (state = initialSystem, action) => {
+    switch(action.type) {
+        case 'UPDATE_SYSTEM_VALUES':
+            return action.system;
+        default:
+            return state;
+        }
+}
+
 const rori = combineReducers({
     roriDisplay,
     roriList,
     volumes,
     polygonAreas,
     polyDisplay,
+    system,
 })
 
 export default rori;

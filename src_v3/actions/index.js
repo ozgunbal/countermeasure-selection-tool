@@ -27,3 +27,8 @@ export const updatePolies = list => ({
     type: 'UPDATE_POLIES',
     list
 });
+
+export const updateSystem = system => ({
+    type: 'UPDATE_SYSTEM_VALUES',
+    system
+});
