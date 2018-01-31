@@ -1,6 +1,7 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: './index.html',
@@ -9,7 +10,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 module.exports = {
-    context: path.join(__dirname, 'src_v2'),
+    context: path.join(__dirname, 'src_v3'),
     entry: './index.js',
     output: {
         path: path.resolve('dist'),
@@ -21,8 +22,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new HotModuleReplacementPlugin(),
-        HtmlWebpackPluginConfig
+        HtmlWebpackPluginConfig,
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            }
+        }),
     ],
 
     devServer: {
@@ -32,4 +37,15 @@ module.exports = {
         historyApiFallback: true,
         hot: true
     }
+}
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            output: {
+                comments: false,
+                beautify: false,
+            }
+        })
+    )
 }

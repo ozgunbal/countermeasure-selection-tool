@@ -1,4 +1,4 @@
-# RORI Index Calculation Tool
+# Countermeasure Simulation Tool
 
 Currently, there's only tests and code implementation
 
@@ -10,8 +10,8 @@ Currently, there's only tests and code implementation
 - [X] testing
 - [X] UI for interaction (React)
 - [X] Highcharts
-- [ ] Use uglify with webpack
-- [ ] Web deploy
+- [X] Use uglify with webpack
+- [X] Web deploy
 - [ ] electron
 
 ## Topic related
