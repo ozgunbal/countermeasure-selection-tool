@@ -17,7 +17,7 @@ class Countermeasure {
         }
         this.volume = calculateVolumeWithScatter(this.scatterVolumeObject);
         this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
-        this.annualResponseCost = this.volume * 5 + 100;
+        this.annualResponseCost = this.volume * system.getConversionFactor() //+ 10;
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {

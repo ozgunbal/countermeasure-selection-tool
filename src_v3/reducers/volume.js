@@ -9,6 +9,11 @@ const attacks = (state = attackInfo, action) => {
             ...state,
             action.attack
         ];
+    case 'DELETE_ATTACK':
+        return [
+            ...state.slice(0, action.id),
+            ...state.slice(action.id + 1)
+        ];
     default:
         return state;
     }
@@ -20,6 +25,11 @@ const countermeasures = (state = countermeasureInfo, action) => {
         return [
             ...state,
             action.countermeasure
+        ];
+    case 'DELETE_COUNTERMEASURE':
+        return [
+            ...state.slice(0, action.id),
+            ...state.slice(action.id + 1)
         ];
     default:
         return state;

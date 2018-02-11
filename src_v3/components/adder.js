@@ -1,7 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addAttack, updateRoris, changeChart, addCountermeasure, updatePolies, changeDisplayPoly } from '../actions';
+import { 
+    addAttack, 
+    updateRoris, 
+    changeChart, 
+    addCountermeasure, 
+    updatePolies, 
+    changeDisplayPoly,
+    deleteAttack,
+    deleteCountermeasure,
+} from '../actions';
 import Simulation from '../simulation';
 import nPolySimulation from '../nPolySimulation';
 import { Button, Jumbotron, FormControl, Row, Col } from 'react-bootstrap';
@@ -14,6 +23,8 @@ class Adder extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleAttackAdd = this.handleAttackAdd.bind(this);
         this.handleCountermeasureAdd = this.handleCountermeasureAdd.bind(this);
+        this.handleAttackDelete = this.handleAttackDelete.bind(this);
+        this.handleCountermeasureDelete = this.handleCountermeasureDelete.bind(this);
         this.update = false;
     }
     handleAttackAdd() {
@@ -25,6 +36,10 @@ class Adder extends React.Component {
         });
         this.update = true;
     }
+    handleAttackDelete(attackIndex) {
+        this.props.deleteAttackVolume(attackIndex);
+        this.update = true;
+    }
     handleCountermeasureAdd() {
         const { cmRcu, cmCode, ef } = this.state;
         this.props.addCountermeasureVolume({
@@ -32,6 +47,10 @@ class Adder extends React.Component {
             code: cmCode,
             ef,
         });
+        this.update = true;
+    }
+    handleCountermeasureDelete(countermeasureIndex) {
+        this.props.deleteCountermeasureVolume(countermeasureIndex);
         this.update = true;
     }
     handleChange(evt) {
@@ -60,7 +79,7 @@ class Adder extends React.Component {
                     <Col xs={6} xsOffset={5}><h4><strong>Attacks</strong></h4></Col>
                 </Row>
                 {
-                    this.props.attacks.map((attack, i) => <Row key={i} className="show-grid"><Col xs={3} xsOffset={4}>{`${attack.code}: ${attack.rcu}`}</Col></Row>)
+                    this.props.attacks.map((attack, i) => <Row key={i} className="show-grid"><Col xs={3} xsOffset={4}>{`${attack.code}: ${attack.rcu}`}<Button onClick={() => this.handleAttackDelete(i)}>Delete</Button></Col></Row>)
                 }
                 <Row className="show-grid" onChange={this.handleChange}>
                     <Col xs={2} xsOffset={1}>
@@ -80,7 +99,7 @@ class Adder extends React.Component {
                     <Col xs={6} xsOffset={4}><  h4><strong>Countermeasures</strong></h4></Col>
                 </Row>
                 {
-                    this.props.countermeasures.map((countermeasure, i) => <Row key={i} className="show-grid"><Col xs={3} xsOffset={4}>{`${countermeasure.code}: ${countermeasure.rcu}`}</Col></Row>)
+                    this.props.countermeasures.map((countermeasure, i) => <Row key={i} className="show-grid"><Col xs={5} xsOffset={4}>{`${countermeasure.code}: ${countermeasure.rcu}`}<Button onClick={() => this.handleCountermeasureDelete(i)}>Delete</Button></Col></Row>)
                 }
                 <Row className="show-grid" onChange={this.handleChange}>
                     <Col xs={2} xsOffset={1}>
@@ -113,6 +132,8 @@ const mapDispatchToProps = dispatch => ({
     chartLoad: rori => dispatch(changeChart(rori)),
     updatePolyList: list => dispatch(updatePolies(list)),
     changePolyDisplay: poly => dispatch(changeDisplayPoly(poly)),
+    deleteAttackVolume: id => dispatch(deleteAttack(id)),
+    deleteCountermeasureVolume: id => dispatch(deleteCountermeasure(id)),
 });
 
 export default connect(

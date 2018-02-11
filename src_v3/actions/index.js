@@ -32,3 +32,13 @@ export const updateSystem = system => ({
     type: 'UPDATE_SYSTEM_VALUES',
     system
 });
+
+export const deleteAttack = id => ({
+    type: 'DELETE_ATTACK',
+    id
+});
+
+export const deleteCountermeasure = id => ({
+    type: 'DELETE_COUNTERMEASURE',
+    id
+});
