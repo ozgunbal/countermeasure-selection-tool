@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { 
-    addAttack, 
-    updateRoris, 
-    changeChart, 
-    addCountermeasure, 
-    updatePolies, 
+import {
+    addAttack,
+    updateRoris,
+    changeChart,
+    addCountermeasure,
+    updatePolies,
     changeDisplayPoly,
     deleteAttack,
     deleteCountermeasure,
 } from '../actions';
 import Simulation from '../simulation';
 import nPolySimulation from '../nPolySimulation';
-import { Button, Jumbotron, FormControl, Row, Col } from 'react-bootstrap';
+import { Button, Jumbotron, FormControl, Row, Col, Label, Well } from 'react-bootstrap';
 import attack from '../models/attack';
 
 class Adder extends React.Component {
@@ -79,27 +79,43 @@ class Adder extends React.Component {
                     <Col xs={6} xsOffset={5}><h4><strong>Attacks</strong></h4></Col>
                 </Row>
                 {
-                    this.props.attacks.map((attack, i) => <Row key={i} className="show-grid"><Col xs={3} xsOffset={4}>{`${attack.code}: ${attack.rcu}`}<Button onClick={() => this.handleAttackDelete(i)}>Delete</Button></Col></Row>)
+                    this.props.attacks.map((attack, i) =>
+                        <Row key={i} className="show-grid">
+                            <Col xs={4} xsOffset={4} style={{display: "flex"}}>
+                                <Well style={{margin: 3, padding: 3, alignContent: "space-between"}}  bsSize="small">
+                                <Label>{attack.code}</Label> {attack.rcu} <Button bsSize="small" onClick={() => this.handleAttackDelete(i)}>Delete</Button>
+                                </Well>
+                            </Col>
+                        </Row>
+                    )
                 }
                 <Row className="show-grid" onChange={this.handleChange}>
                     <Col xs={2} xsOffset={1}>
-                    <FormControl type="text" placeholder="A3" name="attackCode" />
+                        <FormControl type="text" placeholder="A3" name="attackCode" />
                     </Col>
                     <Col xs={2} md={3}>
-                    <FormControl type="text" placeholder="R(2)C(2)U(5)" name="attackRcu" />
+                        <FormControl type="text" placeholder="R(2)C(2)U(5)" name="attackRcu" />
                     </Col>
                     <Col xs={2} md={3}>
-                    <FormControl type="number" placeholder="9" name="aro" />
+                        <FormControl type="number" placeholder="9" name="aro" />
                     </Col>
                     <Col xs={2} md={3}>
-                    <Button bsStyle="primary" onClick={this.handleAttackAdd}>Add</Button>
+                        <Button bsStyle="primary" onClick={this.handleAttackAdd}>Add</Button>
                     </Col>
                 </Row>
                 <Row className="show-grid">
                     <Col xs={6} xsOffset={4}><  h4><strong>Countermeasures</strong></h4></Col>
                 </Row>
                 {
-                    this.props.countermeasures.map((countermeasure, i) => <Row key={i} className="show-grid"><Col xs={5} xsOffset={4}>{`${countermeasure.code}: ${countermeasure.rcu}`}<Button onClick={() => this.handleCountermeasureDelete(i)}>Delete</Button></Col></Row>)
+                    this.props.countermeasures.map((countermeasure, i) =>
+                        <Row key={i} className="show-grid">
+                            <Col xs={5} xsOffset={4} style={{display: "flex"}}>
+                                <Well style={{margin: 3, padding: 3, alignContent: "space-between"}}  bsSize="small">
+                                <Label>{countermeasure.code}</Label> {countermeasure.rcu} <Button bsSize="small" onClick={() => this.handleCountermeasureDelete(i)}>Delete</Button>
+                                </Well>
+                            </Col>
+                        </Row>
+                    )
                 }
                 <Row className="show-grid" onChange={this.handleChange}>
                     <Col xs={2} xsOffset={1}>
