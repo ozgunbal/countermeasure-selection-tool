@@ -8,6 +8,8 @@ Highcharts3D(ReactHighcharts.Highcharts);
 
 import { getCharts } from '../../reducers/chart';
 
+import SVG3D from '../new3d/svg3d';
+
 const Chart = ({ charts }) => (
     <Tabs
         defaultActiveKey={1}
@@ -26,9 +28,12 @@ const Chart = ({ charts }) => (
                 <div style={{ color: 'purple' }}><b>Covered Units</b></div>
             </div>
         </Tab>
+        <Tab eventKey={2} title="3D Volume Model NEW">
+            <SVG3D/>
+        </Tab>
         {
             charts.slice(1).map((chart, idx) => (
-                <Tab eventKey={idx + 2} title={chart.title.text}>
+                <Tab eventKey={idx + 3} title={chart.title.text}>
                     <ReactHighcharts config={charts[idx + 1]} />
                 </Tab>
             ))
