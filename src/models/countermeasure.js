@@ -1,20 +1,25 @@
-import { generateVolumeObject } from '../Engines/message';
-import { calculateCoverage, volumeIntersection, calculateVolume } from '../Engines/AVEngine';
+import { generateScatterVolume, generateVolumeObject, getVolumeDrawParameters } from '../Engines/message';
+import { calculateScatterCoverage, volumeUnionScatter, calculateVolumeWithScatter, volumeUnion } from '../Engines/AVEngine';
+import { getDimensions } from '../Engines/nPolyEngine';
 
 class Countermeasure {
-    constructor(countermeasureStrings, EFs, ARCs, system){
+    constructor(countermeasureStrings, EFs, system){
         const systemVolumeObject = system.getVolumeObject();
 
         if (countermeasureStrings.length > 1) {
+            const scatterVolumeObjects = countermeasureStrings.map(countermeasureString => generateScatterVolume(countermeasureString, systemVolumeObject));
+            this.scatterVolumeObject = volumeUnionScatter(scatterVolumeObjects);
             const volumeObjects = countermeasureStrings.map(countermeasureString => generateVolumeObject(countermeasureString, systemVolumeObject));
-            this.volumeObject = volumeIntersection(volumeObjects);
+            this.volumeObject = volumeUnion(volumeObjects);
         } else {
-            this.volumeObject = generateVolumeObject(countermeasureStrings[0], systemVolumeObject)
+            this.scatterVolumeObject = generateScatterVolume(countermeasureStrings[0], systemVolumeObject);
+            this.volumeObject = generateVolumeObject(countermeasureStrings[0], systemVolumeObject);
         }
-
-        this.volume = calculateVolume(this.volumeObject);
+        this.volume = calculateVolumeWithScatter(this.scatterVolumeObject);
         this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
-        this.annualResponseCost = ARCs.reduce((a,b) => a+b);
+        this.annualResponseCost = this.volume * system.getConversionFactor() //+ 10;
+
+        this.drawParameters = countermeasureStrings.map(attack => getVolumeDrawParameters(attack, systemVolumeObject));
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
@@ -23,14 +28,20 @@ class Countermeasure {
     getARC() {
         return this.annualResponseCost;
     }
-    getVolumeObject() {
-        return this.volumeObject;
+    getScatterVolumeObject() {
+        return this.scatterVolumeObject;
     }
     getEF() {
         return this.effectivenessFactor;
     }
     getCoverage(attackVolumeObject) {
-        return calculateCoverage(attackVolumeObject, this.volumeObject) / 100;
+        return calculateScatterCoverage(attackVolumeObject, this.scatterVolumeObject) / 100;
+    }
+    getDimensions(system) {
+        return getDimensions(this.volumeObject, system.getVolumeObject());
+    }
+    getDrawParameters() {
+        return this.drawParameters;
     }
 }
 

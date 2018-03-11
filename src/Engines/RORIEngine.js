@@ -11,9 +11,9 @@ export const calculateRORIIndex = (system, attack, countermeasure) => {
     const aiv = system.getAIV();
     const ale = attack.getALE();
     const arc = countermeasure.getARC();
-    const rm = countermeasure.getRM(attack.getVolumeObject());
+    const rm = countermeasure.getRM(attack.getScatterVolumeObject());
 
-    return ((ale * rm) - arc) / (arc + aiv);
+    return ((ale * rm) - arc) / (arc + aiv) * 100;
 }
 
 export const getCombinations = (countermeasureArray) => {

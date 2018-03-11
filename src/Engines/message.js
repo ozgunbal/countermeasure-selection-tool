@@ -1,3 +1,10 @@
+// For RCU Scatter type Volume representation
+export const generateScatterVolume = (volumeString, systemVolume) => {
+    const ranges = generateRanges(volumeString);
+    return getRCUScatterPointsWithVolume(ranges, systemVolume);
+}
+
+// For Volume Object representation
 export const generateVolumeObject = (volumeString, systemVolume) => {
     if (!isValid) throw Error('Invalid volume');
 
@@ -16,7 +23,7 @@ export const generateVolumeObject = (volumeString, systemVolume) => {
     }, {});
 }
 
-// NOT TESTED !!
+// For RCU Scatter type Volume representation
 export const generateRanges = (volumeString, systemVolume) => {
     if (!isValid) throw Error('Invalid volume');
 
@@ -33,18 +40,6 @@ export const generateRanges = (volumeString, systemVolume) => {
         volumeObject[rcuElement.key] = indexArray;
         return volumeObject;
     }, {});
-}
-
-export const getScatterPoints = ranges => {
-    const points = [];
-    for(let i = 0; i < ranges.resource.length; i++){
-        for(let j = 0; j < ranges.channel.length; j++){
-            for(let k = 0; k < ranges.userAccount.length; k++){
-                points.push([ranges.resource[i], ranges.channel[j], ranges.userAccount[k]]);
-            }
-        }
-    }
-    return points;
 }
 
 export const isValid = (volumeString) => /R\((\d+([,-]\d+)|\d+)(,(\d+([,-]\d+)|\d+))*\)C\((\d+([,-]\d+)|\d+)(,(\d+([,-]\d+)|\d+))*\)U\((\d+([,-]\d+)|\d+)(,(\d+([,-]\d+)|\d+))*\)/.test(volumeString);
@@ -93,6 +88,10 @@ const getRangeArray = (start, end) => {
     return Array.from(Array(diff).keys()).map(x => x + start);
 }
 
+export const getScatterPoints = volume => {
+    return volume.map(unit => [unit.resourceIdx, unit.channelIdx, unit.userAccountIdx]);
+}
+
 // generates RCU scatter points from string
 export const getRCUScatterPoints = ranges => {
     const points = [];
@@ -109,3 +108,54 @@ export const getRCUScatterPoints = ranges => {
     }
     return points;
 }
+
+// generates RCU scatter points from ranges array and system volume
+export const getRCUScatterPointsWithVolume = (ranges, systemVolume) => {
+    const points = [];
+    for(let i = 0; i < ranges.resource.length; i++){
+        for(let j = 0; j < ranges.channel.length; j++){
+            for(let k = 0; k < ranges.userAccount.length; k++){
+                const resourceIdx = ranges.resource[i];
+                const channelIdx =  ranges.channel[j];
+                const userAccountIdx = ranges.userAccount[k];
+                const unitVolume = systemVolume.resource[resourceIdx - 1].weight * systemVolume.channel[channelIdx - 1].weight * systemVolume.userAccount[userAccountIdx - 1].weight;
+                points.push({
+                    resourceIdx,
+                    channelIdx,
+                    userAccountIdx,
+                    unitVolume
+                });
+            }
+        }
+    }
+    return points;
+}
+
+/**
+ * Calculates draw parameters of volume wrt focus point in 3D space
+ * @param {String} volumeString R(1)C(1-2)U(2-5) 
+ * @param {Object} systemVolume 
+ * @return {Object} {focus: [0, 20, 0], edges: [10, 30, 40]}
+ */
+export const getVolumeDrawParameters = (volumeString, systemVolume) => (
+    Object.entries(generateRanges(volumeString)).reduce((draw,[key, range]) => {
+        const lastElement = range[range.length - 1];
+        const firstElement = range[0];
+        let focus = 0;
+        let edge = 0;
+        for (let i = 1; i<= lastElement; i++) {
+            if(i < firstElement) {
+                focus += systemVolume[key][i - 1].weight;
+            } else {
+                edge += systemVolume[key][i - 1].weight;
+            }
+        }
+        return {
+            focus : [...draw.focus, focus],
+            edges: [...draw.edges, edge],
+        }
+    }, {
+        focus : [],
+        edges: []
+    })
+);

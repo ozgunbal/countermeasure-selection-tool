@@ -10,7 +10,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 module.exports = {
-    context: path.join(__dirname, 'src_v3'),
+    context: path.join(__dirname, 'src'),
     entry: './index.js',
     output: {
         path: path.resolve('build'),
