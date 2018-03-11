@@ -1,4 +1,4 @@
-import { calculateVolume } from '../Engines/AVEngine';
+import { calculateVolume, calculateSingleAxis } from '../Engines/AVEngine';
 
 class System{
     constructor(infrastructureValue, AIV, systemVolumeObject) {
@@ -7,6 +7,10 @@ class System{
         this.volumeObject = systemVolumeObject;
         this.volume = calculateVolume(systemVolumeObject);
         this.conversionFactor = this.infrastructureValue / this.volume
+        this.drawParameters = Object.entries(this.volumeObject).reduce((draw, [key, value]) => {
+            draw[key[0]] = calculateSingleAxis(this.volumeObject[key]);
+            return draw;
+        }, {});
     }
     getVolume() {
         return this.volume;
@@ -19,6 +23,9 @@ class System{
     }
     getAIV() {
         return this.AIV;
+    }
+    getDrawParameters() {
+        return this.drawParameters;
     }
 }
 

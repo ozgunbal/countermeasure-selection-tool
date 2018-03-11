@@ -130,3 +130,32 @@ export const getRCUScatterPointsWithVolume = (ranges, systemVolume) => {
     }
     return points;
 }
+
+/**
+ * Calculates draw parameters of volume wrt focus point in 3D space
+ * @param {String} volumeString R(1)C(1-2)U(2-5) 
+ * @param {Object} systemVolume 
+ * @return {Object} {focus: [0, 20, 0], edges: [10, 30, 40]}
+ */
+export const getVolumeDrawParameters = (volumeString, systemVolume) => (
+    Object.entries(generateRanges(volumeString)).reduce((draw,[key, range]) => {
+        const lastElement = range[range.length - 1];
+        const firstElement = range[0];
+        let focus = 0;
+        let edge = 0;
+        for (let i = 1; i<= lastElement; i++) {
+            if(i < firstElement) {
+                focus += systemVolume[key][i - 1].weight;
+            } else {
+                edge += systemVolume[key][i - 1].weight;
+            }
+        }
+        return {
+            focus : [...draw.focus, focus],
+            edges: [...draw.edges, edge],
+        }
+    }, {
+        focus : [],
+        edges: []
+    })
+);

@@ -247,6 +247,7 @@ const config = {
 
 export const getCharts = (state) => {
     return [
+        state.roriDisplay,
         getConfig(state.roriDisplay),
         lineChart(state.roriList),
         bestRORIMaxARC(state.roriList),

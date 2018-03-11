@@ -17,7 +17,10 @@ const Chart = ({ charts }) => (
         id="uncontrolled-tab-example"
     >
         <Tab eventKey={1} title="3D Volume Model">
-            <ReactHighcharts config={charts[0]} />
+            <SVG3D display={charts[0]}/>
+        </Tab>
+        <Tab eventKey={2} title="3D Volume Model (Scatter)">
+            <ReactHighcharts config={charts[1]} />
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-around',
@@ -28,13 +31,10 @@ const Chart = ({ charts }) => (
                 <div style={{ color: 'purple' }}><b>Covered Units</b></div>
             </div>
         </Tab>
-        <Tab eventKey={2} title="3D Volume Model NEW">
-            <SVG3D/>
-        </Tab>
         {
-            charts.slice(1).map((chart, idx) => (
+            charts.slice(2).map((chart, idx) => (
                 <Tab eventKey={idx + 3} title={chart.title.text}>
-                    <ReactHighcharts config={charts[idx + 1]} />
+                    <ReactHighcharts config={charts[idx + 2]} />
                 </Tab>
             ))
         }

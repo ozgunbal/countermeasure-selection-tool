@@ -1,4 +1,4 @@
-import { generateScatterVolume, generateVolumeObject } from '../Engines/message';
+import { generateScatterVolume, generateVolumeObject, getVolumeDrawParameters } from '../Engines/message';
 import { calculateScatterCoverage, volumeUnionScatter, calculateVolumeWithScatter, volumeUnion } from '../Engines/AVEngine';
 import { getDimensions } from '../Engines/nPolyEngine';
 
@@ -18,6 +18,8 @@ class Countermeasure {
         this.volume = calculateVolumeWithScatter(this.scatterVolumeObject);
         this.effectivenessFactor = EFs.reduce((a,b) => a < b ? a : b); 
         this.annualResponseCost = this.volume * system.getConversionFactor() //+ 10;
+
+        this.drawParameters = countermeasureStrings.map(attack => getVolumeDrawParameters(attack, systemVolumeObject));
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
@@ -37,6 +39,9 @@ class Countermeasure {
     }
     getDimensions(system) {
         return getDimensions(this.volumeObject, system.getVolumeObject());
+    }
+    getDrawParameters() {
+        return this.drawParameters;
     }
 }
 

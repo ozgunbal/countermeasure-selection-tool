@@ -9,7 +9,7 @@ import systemInfo from './DBs/systemDb'
 
 import { systemVolumeLarge, volumeOne } from '../test/sampleTestData';
 
-import { volumeSubtractionScatter, volumeIntersectionScatter, calculateSingleAxis, generateRanges } from './Engines/AVEngine';
+import { volumeSubtractionScatter, volumeIntersectionScatter, calculateSingleAxis } from './Engines/AVEngine';
 import { getRCUScatterPoints, getScatterPoints, getRCUScatterPointsWithVolume } from './Engines/message';
 
 
@@ -41,6 +41,11 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
                 onlyAttack: getScatterPoints(onlyAttackVolume),
                 onlyCM: getScatterPoints(onlyCMVolume),
                 coverage: getScatterPoints(coverageVolume)
+            },
+            drawParameters: {
+                attack: attack.getDrawParameters(),
+                cm: cm.instance.getDrawParameters(),
+                systemRcu: system.getDrawParameters(),
             }
         };
     });

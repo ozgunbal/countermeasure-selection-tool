@@ -1,4 +1,4 @@
-import { generateScatterVolume, generateVolumeObject } from '../Engines/message';
+import { generateScatterVolume, generateVolumeObject, getVolumeDrawParameters } from '../Engines/message';
 import { volumeUnionScatter, calculateVolumeWithScatter, volumeUnion } from '../Engines/AVEngine';
 import { getDimensions } from '../Engines/nPolyEngine';
 
@@ -19,6 +19,8 @@ class Attack {
         this.volume = calculateVolumeWithScatter(this.scatterVolumeObject);
         this.singleLossExpectancy = system.getConversionFactor() * this.volume;
         this.annualRateOfOccurence = annualRateOfOccurence;
+
+        this.drawParameters = attackStrings.map(attack => getVolumeDrawParameters(attack, systemVolumeObject));
     }
     // Annual Loss Expectancy
     getALE() {
@@ -32,6 +34,9 @@ class Attack {
     }
     getDimensions(system) {
         return getDimensions(this.volumeObject, system.getVolumeObject());
+    }
+    getDrawParameters() {
+        return this.drawParameters;
     }
 }
 
