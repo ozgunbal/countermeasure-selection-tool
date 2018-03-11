@@ -90,3 +90,18 @@ export const getArea = dimensions => {
     // sums / 2
     return Math.round(multipliedDimension.reduce((a,b) => a + b) / 2);
 }
+
+export const calculateAreaCoverage = (attackVolumeObject, cmVolumeObject, systemVolumeObject) => {
+    const coverageArea = calculateCoverageArea(attackVolumeObject, cmVolumeObject, systemVolumeObject);
+    const attackArea = getArea(getDimensions(attackVolumeObject, systemVolumeObject));
+    return (coverageArea / attackArea) * 100;
+}
+
+export const calculateCoverageArea = (attackVolumeObject, cmVolumeObject, systemVolumeObject) => {
+    const coverageVolume = Object.entries(attackVolumeObject).reduce((volume, [key, units]) => {
+        volume[key] = intersectSingleAxis([attackVolumeObject[key], cmVolumeObject[key]]);
+        return volume;
+    }, {});
+    const coverageDimensions = getDimensions(coverageVolume, systemVolumeObject);
+    return getArea(coverageDimensions);
+}

@@ -13,7 +13,7 @@ class RoriList extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(evt) {
-        const value = evt.target.name === 'coverage' ? Number(evt.target.value) / 100 : Number(evt.target.value);
+        const value = evt.target.name === 'coverage' ? Number(evt.target.value) : Number(evt.target.value);
         this.setState({ [evt.target.name]: value });
     }
     render() {

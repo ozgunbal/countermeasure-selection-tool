@@ -9,7 +9,9 @@ const RoriTable = ({ roriList, chartLoad }) => (
             <tr>
                 <th>Countermeasure Code</th>
                 <th>RORI Index</th>
-                <th>Coverage %</th>
+                <th>Coverage</th>
+                <th>Residual Risk</th>
+                <th>Potential Collateral Damage</th>
                 <th></th>
             </tr>
         </thead>
@@ -19,7 +21,9 @@ const RoriTable = ({ roriList, chartLoad }) => (
                     <tr key={idx}>
                         <td>{roriData.code}</td>
                         <td>{(roriData.rori).toFixed(3)}</td>
-                        <td>{(roriData.coverage * 100).toFixed(2)}%</td>
+                        <td>{(roriData.coverage).toFixed(2)}%</td>
+                        <td>{(roriData.rr).toFixed(2)}%</td>
+                        <td>{(roriData.pcd).toFixed(2)}%</td>
                         <td><Button onClick={() => chartLoad(roriData)}>Show</Button></td>
                     </tr>
                 ))

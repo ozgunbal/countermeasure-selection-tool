@@ -40,7 +40,7 @@ Change Alpha with scrollbar
             <div>
                 <div style={{ textAlign: 'center' }}>
                     <h4>Attack Coverage of {code}</h4>
-                    <h5>Coverage: {(coverage * 100).toFixed(2)}% </h5>
+                    <h5>Coverage: {coverage.toFixed(2)}% </h5>
                 </div>
                 <svg style={{ height: height, width: width + 10, display: 'block', margin: '10px auto' }}>
                     <Axes focus={axisFocus} alpha={alpha} rcu={systemRcu} />

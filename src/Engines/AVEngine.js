@@ -104,7 +104,11 @@ export const volumeSubtractionScatter = scatterVolumes => {
 }
 
 export const calculateScatterCoverage = (attackVolume, countermeasureVolume) => {
-    const intersectVol = calculateVolumeWithScatter(volumeIntersectionScatter([attackVolume, countermeasureVolume]));
+    const intersectVol = calculateCoverageVolume(attackVolume, countermeasureVolume);
     const attackVol = calculateVolumeWithScatter(attackVolume);
     return (intersectVol / attackVol) * 100;
 }
+
+export const calculateCoverageVolume = (attackVolume, countermeasureVolume) => (
+    calculateVolumeWithScatter(volumeIntersectionScatter([attackVolume, countermeasureVolume]))
+);

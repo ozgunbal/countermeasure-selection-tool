@@ -1,6 +1,6 @@
 import { generateScatterVolume, generateVolumeObject, getVolumeDrawParameters } from '../Engines/message';
-import { calculateScatterCoverage, volumeUnionScatter, calculateVolumeWithScatter, volumeUnion } from '../Engines/AVEngine';
-import { getDimensions } from '../Engines/nPolyEngine';
+import { calculateScatterCoverage, volumeUnionScatter, calculateVolumeWithScatter, volumeUnion, calculateCoverageVolume } from '../Engines/AVEngine';
+import { getDimensions, calculateAreaCoverage, getArea, calculateCoverageArea } from '../Engines/nPolyEngine';
 
 class Countermeasure {
     constructor(countermeasureStrings, EFs, system){
@@ -34,14 +34,26 @@ class Countermeasure {
     getEF() {
         return this.effectivenessFactor;
     }
-    getCoverage(attackVolumeObject) {
-        return calculateScatterCoverage(attackVolumeObject, this.scatterVolumeObject) / 100;
+    getCoverage(attackScatterVolumeObject) {
+        return calculateScatterCoverage(attackScatterVolumeObject, this.scatterVolumeObject);
+    }
+    getAreaCoverage(attackVolumeObject, system) {
+        return calculateAreaCoverage(attackVolumeObject, this.volumeObject, system.getVolumeObject());
     }
     getDimensions(system) {
         return getDimensions(this.volumeObject, system.getVolumeObject());
     }
     getDrawParameters() {
         return this.drawParameters;
+    }
+    getPotentialDamage(attackScatterVolumeObject) {
+        const coverageVolume = calculateCoverageVolume(attackScatterVolumeObject, this.scatterVolumeObject);
+        return (this.volume - coverageVolume ) * 100 / this.volume;
+    }
+    getAreaPotentialDamage(attackVolumeObject, system) {
+        const cmArea = getArea(this.getDimensions(system));
+        const coverageArea = calculateCoverageArea(attackVolumeObject, this.volumeObject, system.getVolumeObject())
+        return (cmArea - coverageArea ) * 100 / cmArea;
     }
 }
 

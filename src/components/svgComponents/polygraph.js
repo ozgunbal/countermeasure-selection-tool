@@ -18,7 +18,7 @@ class PolyGraph extends Component {
         return (
             <div ref={input => {this.myInput = input}}>
                 <h3 style={{marginLeft: '20%'}}>Countermeasure: {code}</h3>
-                <svg style={{ height: size, width: size }}>
+                <svg style={{ height: size * 0.7887, width: size }}>
                     <Axes n={dims[0].length} size={size / 2.5} />
                     <Areas areas={generatePolygons(dims, size / 2.5)} />
                 </svg>

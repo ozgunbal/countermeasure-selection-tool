@@ -155,7 +155,7 @@ const minARCMinCOV = (rorilist) => {
 const getConfig = (rori) => {
     const tempConfig = Object.assign(config);
     tempConfig.title.text = `Attack Coverage of ${rori.code}`
-    tempConfig.subtitle.text = `Coverage: ${(rori.coverage * 100).toFixed(2)}% `;
+    tempConfig.subtitle.text = `Coverage: ${(rori.coverage).toFixed(2)}% `;
     tempConfig.xAxis.max = Simulation.chartLimits.resource;
     tempConfig.yAxis.max = Simulation.chartLimits.channel;
     tempConfig.zAxis.max = Simulation.chartLimits.userAccount;

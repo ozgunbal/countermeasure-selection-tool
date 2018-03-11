@@ -38,6 +38,9 @@ const simulate = (systemInfo, attackInfo, countermeasureInfo) => {
             cmA: getArea(cmDims),
             systemP: getPerimeter(systemDims),
             systemA: getArea(systemDims),
+            coverage: cmi.instance.getAreaCoverage(attack.getVolumeObject(), system),
+            rr: 100 - cmi.instance.getAreaCoverage(attack.getVolumeObject(), system),
+            pcd: cmi.instance.getAreaPotentialDamage(attack.getVolumeObject(), system),
         }
     });
 };
