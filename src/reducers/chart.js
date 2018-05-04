@@ -14,7 +14,7 @@ const lineChart = (roriList) => ({
         title: 'Coverage'
     },
     series: [{
-        data: roriList.sort((a, b) => a.arc - b.arc).map(rori => [rori.arc, rori.coverage * 100])
+        data: roriList.sort((a, b) => a.arc - b.arc).map(rori => [rori.arc, rori.coverage])
     }]
 })
 
@@ -53,7 +53,7 @@ const bestRORIMaxARC = (rorilist) => {
 
 const bestCOVMaxARC = (rorilist) => {
     const findBestCOV = (rorilist, arcLimit) => {
-        const filtered = rorilist.filter(rori => rori.arc < arcLimit).map(rori => rori.coverage * 100);
+        const filtered = rorilist.filter(rori => rori.arc < arcLimit).map(rori => rori.coverage);
         const limit = filtered.length < 1 ? 0 : Math.max(...filtered)
         return [arcLimit, limit];
     }
@@ -90,7 +90,7 @@ const bestRORIMinCOV = (rorilist) => {
     const findBestRORI = (rorilist, covLimit) => {
         const filtered = rorilist.filter(rori => rori.coverage > covLimit).map(rori => rori.rori);
         const limit = filtered.length < 1 ? 0 : Math.max(...filtered)
-        return [covLimit * 100, limit];
+        return [covLimit, limit];
     }
     const covs = rorilist.map(rori => rori.coverage);
     const numCOV = rorilist.length;
@@ -123,7 +123,7 @@ const minARCMinCOV = (rorilist) => {
     const findMinARC = (rorilist, covLimit) => {
         const filtered = rorilist.filter(rori => rori.coverage > covLimit).map(rori => rori.arc);
         const limit = filtered.length < 1 ? 0 : Math.min(...filtered)
-        return [covLimit * 100, limit];
+        return [covLimit, limit];
     }
     const covs = rorilist.map(rori => rori.coverage);
     const numCOV = rorilist.length;
