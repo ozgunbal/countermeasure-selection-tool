@@ -23,7 +23,7 @@ class Countermeasure {
     }
     // Risk Mitigation
     getRM(attackVolumeObject) {
-        return this.effectivenessFactor * this.getCoverage(attackVolumeObject);
+        return this.effectivenessFactor * this.getCoverage(attackVolumeObject) / 100;
     }
     getARC() {
         return this.annualResponseCost;
